@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: help
+.PHONY: help freeze
 
 .DEFAULT_GOAL := help
 
@@ -11,3 +11,6 @@ help: ## Show this help message
 	awk 'BEGIN {FS = ":.*?## "}; \
 	/^# / {printf "\n%s\n", substr($$0, 3); next} \
 	{printf "  %-20s %s\n", $$1, $$2}'
+
+freeze:  ## Run pip freeze (requirements.txt)
+	pip freeze > requirements.txt
