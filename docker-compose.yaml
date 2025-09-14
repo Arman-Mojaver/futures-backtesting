@@ -7,3 +7,4 @@
         - ./:/code
       environment:
         - ENVIRONMENT=${ENVIRONMENT}
+        - DATABENTO_API_KEY=${DATABENTO_API_KEY}

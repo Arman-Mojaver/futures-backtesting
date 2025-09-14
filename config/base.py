@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import os
+
 
 class BaseConfig:
     ENVIRONMENT: str | None = None
+    DATABENTO_API_KEY: str = os.getenv("DATABENTO_API_KEY", "")
 
     def is_production(self) -> bool:
         return self.ENVIRONMENT == "production"
