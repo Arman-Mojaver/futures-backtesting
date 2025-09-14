@@ -29,4 +29,4 @@ bash:  ## Open a bash shell in web service
 
 
 freeze:  ## Run pip freeze (requirements.txt)
-	pip freeze > requirements.txt
+	pip freeze | grep -v "bt_cli" > requirements.txt
