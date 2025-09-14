@@ -1,0 +1,76 @@
+[tool.ruff]
+line-length = 90
+
+output-format = "concise"
+
+lint.select = ["ALL"]
+lint.ignore = [
+    "ANN202",  # Missing return type annotation for private function
+    "ANN204",  # Missing return type annotation for special method `__init__`
+
+    "COM812",  # Conflicts with ruff formatter
+
+    "D100",    # Missing docstring in public module
+    "D101",    # Missing docstring in public class
+    "D102",    # Missing docstring in public method
+    "D103",    # Missing docstring in public function
+    "D104",    # Missing docstring in public package
+    "D105",    # Missing docstring in magic method
+    "D107",    # Missing docstring in __init__
+    "D203",    # "1 blank line required before class docstring"
+    "D205",    # "1 blank line required between summary line and description"
+    "D212",    # "Multi-line docstring summary should start at the first line" We want D213, start on second line
+
+    "ISC001",  # Conflicts with ruff formatter
+
+    "N999",    # Invalid module name
+
+    "RET503",  # Missing explicit `return` at the end of function able to return non-`None` value
+
+    "S105",    # Possible hardcoded password assigned to argument
+]
+
+exclude = [
+    ".eggs",
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".tox",
+    ".venv",
+    "venv",
+    "__pypackages__",
+    "_build",
+    "build",
+    "dist",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"] # Ignore unused imports in __init__.py files
+"tests*/*" = [
+    "ANN",      # Ignore missing type annotations in tests
+
+    "ARG001",   # Unused function argument (pytest fixtures are passed as arguments, but not used in the test code)
+
+    "D100",     # Missing docstring in public module
+    "D101",     # Missing docstring in public class
+    "D102",     # Missing docstring in public method
+    "D103",     # Missing docstring in public function
+    "D106",     # Missing docstring in public nested class
+    "D107",     # Missing docstring in __init__
+
+    "INP001",   # Ignore implicit namespace packages in tests
+
+    "PLR2004",  # Ignore magic values in tests
+
+    "PT001",    # Use `@pytest.fixture()` over `@pytest.fixture
+    "PT011",    # `pytest.raises(ValueError)` is too broad
+    "PT023",    # Ignore use of parenthesis in @pytest.mark.<marker>
+
+    "S101",     # Ignore asserts in tests
+    "S106",     # Possible hardcoded password assigned to argument
+
+    "SLF001",   # Private member accessed
+]
