@@ -5,3 +5,5 @@
       tty: true
       volumes:
         - ./:/code
+      environment:
+        - ENVIRONMENT=${ENVIRONMENT}
