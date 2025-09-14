@@ -1,3 +1,6 @@
+[tool.pytest.ini_options]
+addopts =["-p no:cacheprovider"]
+
 [tool.ruff]
 line-length = 90
 
