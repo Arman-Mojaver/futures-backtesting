@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-.PHONY: help up down build bash freeze
+.PHONY: help up down build bash freeze pytest
 
 .DEFAULT_GOAL := help up down build bash
 
@@ -30,3 +30,6 @@ bash:  ## Open a bash shell in web service
 
 freeze:  ## Run pip freeze (requirements.txt)
 	pip freeze | grep -v "bt_cli" > requirements.txt
+
+pytest:  ## Run pytest
+	docker compose -f docker-compose.yaml run --rm -it -v $(PWD):/code cli /bin/bash -c "python -m pytest"
