@@ -60,3 +60,19 @@ def test_base_config_repr(environment, expected_string):
         config = get_config()
 
         assert repr(config) == expected_string
+
+
+@pytest.mark.parametrize(
+    ("environment", "expected_string"),
+    [
+        ("production", "price_data/production"),
+        ("development", "price_data/development"),
+        ("testing", "price_data/testing"),
+    ],
+)
+def test_price_data_path(environment, expected_string):
+    with temporary_disable_os_environ_is_test():
+        os.environ["ENVIRONMENT"] = environment
+        config = get_config()
+
+        assert config.price_data_path() == expected_string
