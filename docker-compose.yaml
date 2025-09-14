@@ -1,0 +1,7 @@
+  services:
+    cli:
+      container_name: cli
+      build: .
+      tty: true
+      volumes:
+        - ./:/code
