@@ -19,5 +19,8 @@ class BaseConfig:
     def price_data_path(self) -> str:
         return f"price_data/{self.ENVIRONMENT}"
 
+    def results_path(self) -> str:
+        return f"results/{self.ENVIRONMENT}"
+
     def __repr__(self) -> str:
         return self.__class__.__name__
