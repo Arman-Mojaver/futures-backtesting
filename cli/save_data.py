@@ -5,8 +5,6 @@ import click
 
 from config import config
 from src.databento_client import DatabentoClient
-from src.dataframe_utils import from_databento_df_to_items
-from src.utils import save_data
 
 
 @click.option(
@@ -35,14 +33,13 @@ def save(start_date: str, end_date: str, limit: int) -> None:
     click.echo("Loading data from Databento")
 
     client = DatabentoClient(api_key=config.DATABENTO_API_KEY)
-    dataframe = client.get_range(
+    data = client.get_range(
         start_date=start_date,
         end_date=end_date,
         limit=limit,
     )
-    data = from_databento_df_to_items(dataframe)
     timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d_%H:%M:%S")
-    filename = Path(config.price_data_path()) / f"{timestamp}.json"
-    save_data(data=data, file_path=Path(filename))
+    filename = Path(config.price_data_path()) / f"{timestamp}.dbn"
+    data.to_file(filename)
 
-    click.echo(f"Saved {len(data)} data points from Databento. File: {filename}")
+    click.echo(f"Saved {len(list(data))} data points from Databento. File: {filename}")

@@ -1,5 +1,5 @@
 import databento
-import pandas as pd
+from databento.common.dbnstore import DBNStore
 
 
 class DatabentoClient:
@@ -18,7 +18,7 @@ class DatabentoClient:
         start_date: str,
         end_date: str,
         limit: int = 1,
-    ) -> pd.DataFrame:
+    ) -> DBNStore:
         return self.client.timeseries.get_range(
             dataset="GLBX.MDP3",
             schema="ohlcv-1m",
@@ -27,4 +27,4 @@ class DatabentoClient:
             start=f"{start_date}T00:00:00",
             end=f"{end_date}T00:00:00",
             limit=limit,
-        ).to_df()
+        )
