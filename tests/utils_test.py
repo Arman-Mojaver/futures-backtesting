@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from config import config
-from src.utils import save_data
+from src.utils import replace_nan_to_none, save_data
 
 
 def read_json(p: Path) -> dict:
@@ -70,3 +70,21 @@ def test_save_overwrites_existing_file(file_path, random_data):
 
     assert file_path.exists()
     assert read_json(file_path) == random_data
+
+
+@pytest.mark.parametrize(
+    ("input_data", "expected"),
+    [
+        ({"a": 1, "b": float("nan")}, {"a": 1, "b": None}),
+        ({"a": {"b": float("nan"), "c": 2}}, {"a": {"b": None, "c": 2}}),
+        ([1, 2, float("nan")], [1, 2, None]),
+        ({"x": [1, {"y": float("nan")}, 3]}, {"x": [1, {"y": None}, 3]}),
+        ({"a": 1, "b": [2, 3], "c": {"d": 4}}, {"a": 1, "b": [2, 3], "c": {"d": 4}}),
+        (
+            {"a": float("nan"), "b": [float("nan"), {"c": float("nan")}]},
+            {"a": None, "b": [None, {"c": None}]},
+        ),
+    ],
+)
+def test_replace_nan_to_none(input_data, expected):
+    assert replace_nan_to_none(input_data) == expected
