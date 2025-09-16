@@ -26,7 +26,8 @@ def stats() -> None:
     click.echo(
         f"  End: {metadata.end} "
         f"({datetime.fromtimestamp(metadata.end / 1e9, UTC):%Y-%m-%d})"
-        if metadata.end else "  End: None"
+        if metadata.end
+        else "  End: None"
     )
     click.echo(f"  Count: {len(list(data))}")
     click.echo(f"  Limit: {metadata.limit}")
