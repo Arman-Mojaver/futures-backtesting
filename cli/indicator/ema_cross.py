@@ -105,7 +105,10 @@ def ema_cross(fast_period: int, slow_period: int) -> None:
     engine.run()
 
     timestamp = datetime.now(UTC).strftime("%Y-%m-%d_%H:%M:%S")
-    filename = Path(config.results_path()) / f"{timestamp}.json"
+    filename = (
+        Path(config.results_path())
+        / f"ema_cross_{fast_period}_{slow_period}_{timestamp}.json"
+    )
 
     save_data(
         data=replace_nan_to_none(vars(engine.get_result())),
