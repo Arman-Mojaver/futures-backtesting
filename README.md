@@ -80,6 +80,46 @@ bt stats
 bt indicator ma_cross --fast_period 20 --slow_period 50
 ```
 
+## How to backtest strategies
+The CLI supports two functionalities:
+* Retrieve data from Databento and store it in a local file
+* Use the retrieved data to run backtesting strategies.
+
+In order to retrieve data from Databento, you have to introduce your Databento API Key in the environment variable named `DATABENTO_AKI_KEY`, and start/restart the containers.
+
+Once the environment variable has been filled, you can access the CLI and run the save command:
+```
+make down && make up && make in
+```
+```
+bt save
+```
+The command is specified so that by default it is safe, and does not retrieve a large amount of data by accident. It just retrieves one data bar by default (defined by the `--limit` parameter). If larger amounts of data needs to be retrieved, all parameters need to be specified:
+```
+bt save --limit 400000 --start_date 2024-01-01 --end_date 2025-01-01
+```
+
+Every time the `bt save` is run, a new file is generates in the folder `price_data`.
+When files are parsed from the `price_data` folder, all the files are sorted alphabetically, and since the file names start with the timestamp from when they were created, the latest file will be always parsed.
+
+In order to inspect the metadata of the current file in `price_data`, run the following command:
+```
+bt stats
+```
+
+If no Databento is available to you, you can still use the default data that exists in the repository.
+In order to see the available strategies, run the following command:
+```
+bt indicator --help
+```
+It will display a list of available commands, one per indicator.
+The following command is an example of running an ema_cross indicator:
+```
+bt indicator ema_cross --fast_period 20 --slow_period 50
+```
+
+Once the strategy has finished running, check the results in the `results` folder.
+
 
 ## Key components
 
@@ -103,3 +143,10 @@ The repository organizes produced artifacts into two main folders for clarity an
 ## Environments
 
 This project supports three runtime environments: `production`, `development` and `testing`. The active environment is selected by setting the `ENVIRONMENT` variable inside a `.env` file at the repository root. Docker Compose reads that `.env` file automatically and the variable is passed into containers so application code and entrypoints can branch behavior accordingly. The default environment is `development`.
+
+
+## Tests
+In order to run the tests, run the following command:
+```
+make pytest
+```
