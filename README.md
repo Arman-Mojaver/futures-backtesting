@@ -24,7 +24,7 @@ Each step of the setup can also be done manually as follows (the following steps
 ```
 git clone https://github.com/Arman-Mojaver/futures-backtesting.git
 ```
-2. Create an .env file:
+2. Create an `.env` file:
 
 Make a copy of `.env.example` and name it `.env`, or run:
 ```
@@ -49,6 +49,37 @@ or
 ```
 make in
 ```
+6. Execute the CLI:
+```
+bt
+```
+
+## CLI
+The CLI is accessed by opening up a bash shell inside the container, and typing `bt`.
+1. Open a bash shell inside the container:
+```
+docker compose -f docker-compose.yaml exec -it cli bash
+```
+or
+```
+make in
+```
+2. Execute the CLI:
+```
+bt
+```
+
+Example commands:
+```
+bt save --limit 1000 --start_date 2024-01-10 --end_date 2024-01-11
+```
+```
+bt stats
+```
+```
+bt indicator ma_cross --fast_period 20 --slow_period 50
+```
+
 
 ## Key components
 
@@ -64,11 +95,11 @@ make in
 
 The repository organizes produced artifacts into two main folders for clarity and reproducibility:
 
-* price_data/: the storage location for all .dbn dataset files.
+* price_data/: the storage location for all `.dbn` dataset files.
 
-* results/: stores backtest outputs (PDF and .json)
+* results/: stores backtest outputs (PDF and `.json`)
 
 
 ## Environments
 
-This project supports three runtime environments: `production`, `development` and `testing`. The active environment is selected by setting the `ENVIRONMENT` variable inside a `.env` file at the repository root. Docker Compose reads that `.env` file automatically and the variable is passed into containers so application code and entrypoints can branch behavior accordingly.
+This project supports three runtime environments: `production`, `development` and `testing`. The active environment is selected by setting the `ENVIRONMENT` variable inside a `.env` file at the repository root. Docker Compose reads that `.env` file automatically and the variable is passed into containers so application code and entrypoints can branch behavior accordingly. The default environment is `development`.
