@@ -33,11 +33,16 @@ def save(start_date: str, end_date: str, limit: int) -> None:
     click.echo("Loading data from Databento")
 
     client = DatabentoClient(api_key=config.DATABENTO_API_KEY)
-    data = client.get_range(
-        start_date=start_date,
-        end_date=end_date,
-        limit=limit,
-    )
+    try:
+        data = client.get_range(
+            start_date=start_date,
+            end_date=end_date,
+            limit=limit,
+        )
+    except Exception as e:  # noqa: BLE001
+        click.echo(f"Unable to retrieve data from Databento: {e}")
+        return
+
     timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d_%H:%M:%S")
     filename = Path(config.price_data_path()) / f"{timestamp}.dbn"
     data.to_file(filename)
