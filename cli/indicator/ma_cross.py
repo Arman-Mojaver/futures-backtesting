@@ -120,7 +120,7 @@ def ma_cross(fast_period: int, slow_period: int) -> None:
 
     pdf_file_path = (
         Path(config.results_path())
-        / f"ema_cross_{fast_period}_{slow_period}_{timestamp}.pdf"
+        / f"ma_cross_{fast_period}_{slow_period}_{timestamp}.pdf"
     )
 
     generator = BacktestReportGenerator()
