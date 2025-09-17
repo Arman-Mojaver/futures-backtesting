@@ -2,13 +2,13 @@
    "backtest_end": 1735682400000000000,
    "backtest_start": 1704150060000000000,
    "elapsed_time": 31532340.0,
-   "instance_id": "265aed53-a063-4785-9f28-8e456865eb83",
+   "instance_id": "6fc8e2b4-7370-4036-a141-ddf60f05e67b",
    "iterations": 354799,
    "machine_id": "8ef3b6adf679",
    "run_config_id": null,
-   "run_finished": 1758031742311275000,
-   "run_id": "7d0773de-17ad-469a-9643-bffedc14634a",
-   "run_started": 1758031718889541000,
+   "run_finished": 1758099076607055000,
+   "run_id": "5aaae69e-57e4-4ef9-a6dd-6581923392c7",
+   "run_started": 1758099053387410000,
    "stats_pnls": {
       "USD": {
          "Avg Loser": -272.815072655218,
