@@ -20,6 +20,7 @@ from nautilus_trader.model.enums import AccountType, AssetClass, OmsType
 from nautilus_trader.model.instruments import FuturesContract
 
 from config import config
+from src.backtest_report_generator import BacktestReportGenerator
 from src.strategies.ma_cross import MACross, MACrossConfig
 from src.utils import replace_nan_to_none, save_data
 
@@ -105,12 +106,24 @@ def ma_cross(fast_period: int, slow_period: int) -> None:
     engine.run()
 
     timestamp = datetime.now(UTC).strftime("%Y-%m-%d_%H:%M:%S")
-    filename = (
+    file_path = (
         Path(config.results_path())
         / f"ma_cross_{fast_period}_{slow_period}_{timestamp}.json"
     )
+    output_data = replace_nan_to_none(vars(engine.get_result()))
 
     save_data(
-        data=replace_nan_to_none(vars(engine.get_result())),
-        file_path=Path(filename),
+        data=output_data,
+        file_path=Path(file_path),
     )
+    click.echo(f"Saved json data. File: {file_path}")
+
+    pdf_file_path = (
+        Path(config.results_path())
+        / f"ema_cross_{fast_period}_{slow_period}_{timestamp}.pdf"
+    )
+
+    generator = BacktestReportGenerator()
+    generator.generate(output_data, pdf_file_path)
+
+    click.echo(f"Generated pdf. File: {pdf_file_path}")
