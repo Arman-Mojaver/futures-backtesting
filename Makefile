@@ -2,7 +2,7 @@ SHELL = /bin/bash
 
 .PHONY: help up in down build bash freeze pytest
 
-.DEFAULT_GOAL := help up down build bash
+.DEFAULT_GOAL := help up down build bash env-file setup
 
 
 help: ## Show this help message
@@ -36,3 +36,26 @@ freeze:  ## Run pip freeze (requirements.txt)
 
 pytest:  ## Run pytest
 	docker compose -f docker-compose.yaml run --rm -it -v $(PWD):/code cli /bin/bash -c "python -m pytest"
+
+env-file: ## Create an .env file based on .env.example
+	cp .env.example .env
+
+
+setup:
+	@echo "🔧 Setting up environment..."
+	@$(MAKE) env-file
+	echo "✅ Copied .env.example → .env";
+
+	@read -p "Enter your DATABENTO_API_KEY (or ENTER to leave blank): " key; \
+	if [ ! -z "$$key" ]; then \
+		sed -i.bak "s|^DATABENTO_API_KEY=.*|DATABENTO_API_KEY=$$key|" .env || echo "DATABENTO_API_KEY=$$key" >> .env; \
+		rm -f .env.bak; \
+		echo "✅ API key saved to .env"; \
+	else \
+		echo "⚠️  No API key entered, continuing setup."; \
+	fi
+	@echo "🚀 Creating image and starting containers"
+	@$(MAKE) build
+	@$(MAKE) up
+	@echo "⚡ Containers started, starting bash shell"
+	docker compose -f docker-compose.yaml exec -it cli bash -c "echo '✅ Setup finished! Command to access the CLI: bt'; bash"
