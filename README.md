@@ -128,7 +128,7 @@ In order to inspect the metadata of the current file in `price_data`, run the fo
 bt stats
 ```
 
-If no Databento is available to you, you can still use the default data that exists in the repository.
+If you do not have a Databento API key, you can still use the default data that exists in the repository.
 In order to see the available strategies, run the following command:
 ```
 bt indicator --help
