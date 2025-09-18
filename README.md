@@ -8,9 +8,13 @@ At its core the project automates three primary responsibilities:
 2. **Data storage**: persist the raw market data to disk in the `.dbn` format so that datasets are compact, versionable, and easily distributed across environments.
 3. **Backtesting and reporting**: run strategy backtests in Nautilus Trader using a CLI-driven workflow, capture performance metrics, and export a detailed PDF report summarizing results.
 
+## Dependencies
+In order to run the CLI the following dependencies are required:
+- Docker
+- docker-compose (optional)
 
 ## How to get started
-In order to get started the following lines of code clone the repository and set up the project in one go.
+In order to get started the following lines of code clone the repository and set up the project in one go (docker-compose required).
 ```
 git clone https://github.com/Arman-Mojaver/futures-backtesting.git
 cd futures-backtesting
@@ -50,6 +54,23 @@ or
 make in
 ```
 6. Execute the CLI:
+```
+bt
+```
+
+## Setup without docker-compose
+The following command allows you to execute the CLI by using only Docker, in case docker-compose is not installed on the machine. The `DATABENTO_API_KEY`environment variable has to be set below for the `save` command to work:
+```
+git clone https://github.com/Arman-Mojaver/futures-backtesting.git
+cd futures-backtesting
+docker build -t futures-backtesting .
+docker run -it --name futures-backtesting \
+  -v "$(pwd):/code" \
+  -e ENVIRONMENT="development" \
+  -e DATABENTO_API_KEY="db-..." \
+  futures-backtesting bash
+```
+Once the image has been built and the container started, execute the CLI:
 ```
 bt
 ```
