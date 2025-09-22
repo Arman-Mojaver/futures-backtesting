@@ -1,0 +1,40 @@
+{
+   "backtest_end": 1640988000000000000,
+   "backtest_start": 1609714860000000000,
+   "elapsed_time": 31273140.0,
+   "instance_id": "b6ef8235-5273-4b4a-9597-d544a5f07072",
+   "iterations": 353363,
+   "machine_id": "e6d7d49ce928",
+   "run_config_id": null,
+   "run_finished": 1758561965235607000,
+   "run_id": "574c5dc0-9ba7-4589-98b8-9928493f8024",
+   "run_started": 1758561938228378000,
+   "stats_pnls": {
+      "USD": {
+         "Avg Loser": -243.73508365019012,
+         "Avg Winner": 670.9481316916488,
+         "Expectancy": -4.028539562289609,
+         "Max Loser": -2825.0,
+         "Max Winner": 11974.48,
+         "Min Loser": 0.0,
+         "Min Winner": 23.11,
+         "PnL (total)": -28715.43,
+         "PnL% (total)": -287.1543,
+         "Win Rate": 0.2620650953984287
+      }
+   },
+   "stats_returns": {
+      "Average (Return)": -9.005428325600768e-06,
+      "Average Loss (Return)": -0.0005788396837925218,
+      "Average Win (Return)": 0.0015897640218361406,
+      "Profit Factor": 0.978897183091947,
+      "Returns Volatility (252 days)": 0.10338287536979797,
+      "Risk Return Ratio": -0.005790258125523475,
+      "Sharpe Ratio (252 days)": -0.42989084559163415,
+      "Sortino Ratio (252 days)": -0.6121855409815363
+   },
+   "total_events": 36806,
+   "total_orders": 14256,
+   "total_positions": 1,
+   "trader_id": "BACKTESTER-001"
+}
